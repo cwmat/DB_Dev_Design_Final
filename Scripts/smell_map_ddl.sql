@@ -35,7 +35,7 @@ DROP TABLE smell_profile purge;
 DROP TABLE smellscape purge;
 DROP TABLE smell_magnitude purge;
 DROP TABLE smell_type purge;
-DROP TABLE user purge;
+DROP TABLE user_account purge;
 
 -- ******************************************************
 --    DROP SEQUENCES
@@ -57,9 +57,9 @@ DROP SEQUENCE sequence_user;
 -- https://docs.oracle.com/cd/B28359_01/server.111/b28286/functions112.htm#SQLRF06313
 -- https://stackoverflow.com/questions/11075452/does-oracle-have-any-built-in-hash-function
 -- Maybe add date of creation
-CREATE TABLE user (
+CREATE TABLE user_account (
     user_id         number(11, 0)       NOT NULL
-        CONSTRAINT pk_user PRIMARY KEY,
+        CONSTRAINT pk_user_account PRIMARY KEY,
     first_name      varchar2(256)       NOT NULL,
     last_name       varchar2(256)       NOT NULL,
     username        varchar2(20)        NOT NULL,
@@ -96,34 +96,28 @@ CREATE TABLE smell_magnitude (
 CREATE TABLE smellscape (
     fips_code               char(15)             NOT NULL
         CONSTRAINT pk_smellscape PRIMARY KEY,
-    feature_geometry        clob      NOT NULL
-        CONSTRAINT json_smellscape CHECK (feature_geometry IS JSON (STRICT)),
-    subscription_id         number(11, 0)       NOT NULL
-        CONSTRAINT fk_subscription_id_smellscape REFERENCES subscription_log (subscription_id) ON DELETE SET NULL,
-    comment_id         number(11, 0)       NOT NULL
-        CONSTRAINT fk_comment_id_smellscape REFERENCES comment_log (comment_id) ON DELETE SET NULL,
-
-
+    feature_geometry        SDO_GEOMETRY      NOT NULL
 );
-
 
 
 -- TODO: Research dual PKs here and what I was thinking inititally with smellscape_id
 -- TODO: Researh oracle numebr type and how I want to represent coords
 CREATE TABLE smell_profile (
-    smell_profile_id            number(11, 0)       NOT NULL,
+    fips_code               char(15)             NOT NULL
+        CONSTRAINT fk_fips_code_smell_profile REFERENCES smellscape (fips_code) ON DELETE CASCADE,
     user_id                     number(11, 0)       NOT NULL
-        CONSTRAINT fk_user_id_smell_profile REFERENCES user (user_id) ON DELETE SET NULL,
+        CONSTRAINT fk_user_id_smell_profile REFERENCES user_account (user_id) ON DELETE SET NULL,
     latitude                    number(3, 8)        NOT NULL,
     longitude                   number(3, 8)        NOT NULL,
+    feature_geometry            SDO_GEOMETRY        NOT NULL,
     type_id                     char(2)             NOT NULL
-        CONSTRAINT rg_smell_type CHECK (type_id BETWEEN '01' AND '03')
+        CONSTRAINT rg_smell_type_profile CHECK (type_id BETWEEN '01' AND '03')
         CONSTRAINT fk_type_id_smell_profile REFERENCES smell_type (type_id) ON DELETE SET NULL,
     magnitude_id                char(2)             NOT NULL
-        CONSTRAINT rg_smell_magnitude CHECK (magnitude_id BETWEEN '01' AND '10')
+        CONSTRAINT rg_smell_magnitude_profile CHECK (magnitude_id BETWEEN '01' AND '10')
         CONSTRAINT fk_magnitude_id_smell_profile REFERENCES smell_magnitude (magnitude_id) ON DELETE SET NULL,
     open_description            varchar2(1000)      NULL,
-        CONSTRAINT pk_smell_profile PRIMARY KEY (smell_profile_id, user_id)
+        CONSTRAINT pk_smell_profile PRIMARY KEY (fips_code, user_id)
 );
 
 
@@ -131,11 +125,11 @@ CREATE TABLE comment_log (
     comment_id              number(11, 0)       NOT NULL
         CONSTRAINT pk_comment_log PRIMARY KEY,
     user_id                 number(11, 0)       NOT NULL
-        CONSTRAINT fk_user_id_comment_log REFERENCES user (user_id) ON DELETE SET NULL,
+        CONSTRAINT fk_user_id_comment_log REFERENCES user_account (user_id) ON DELETE CASCADE,
     fips_code               char(8)             NOT NULL
-        CONSTRAINT fk_fips_code_comment_log REFERENCES smellscape (fips_code) ON DELETE SET NULL,
+        CONSTRAINT fk_fips_code_comment_log REFERENCES smellscape (fips_code) ON DELETE CASCADE,
     comment_date            date                default CURRENT_DATE    NULL,
-    comment                 varchar2(1000)      NOT NULL
+    comment_desc                 varchar2(1000)      NOT NULL
 );
 
 -- Note change in PK name
@@ -144,9 +138,9 @@ CREATE TABLE subscription_log (
     subscription_id              number(11, 0)       NOT NULL
         CONSTRAINT pk_subscription_log PRIMARY KEY,
     user_id                 number(11, 0)       NOT NULL
-        CONSTRAINT fk_user_id_subscription_log REFERENCES user (user_id) ON DELETE SET NULL,
+        CONSTRAINT fk_user_id_subscription_log REFERENCES user_account (user_id) ON DELETE CASCADE,
     fips_code               char(8)             NOT NULL
-        CONSTRAINT fk_fips_code_subscription_log REFERENCES smellscape (fips_code) ON DELETE SET NULL,
+        CONSTRAINT fk_fips_code_subscription_log REFERENCES smellscape (fips_code) ON DELETE CASCADE,
     subscription_date            date                default CURRENT_DATE    NULL
 );
 
