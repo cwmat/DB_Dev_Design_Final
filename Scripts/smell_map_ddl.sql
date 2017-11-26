@@ -146,17 +146,6 @@ CREATE TABLE subscription_log (
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 -- ******************************************************
 --    CREATE SEQUENCES
 -- ******************************************************
@@ -177,54 +166,7 @@ CREATE SEQUENCE sequence_comment_log
     INCREMENT BY 1
     START WITH 1;
     
--- ******************************************************
---    POPULATE TABLES
---
--- Note:  Follow instructions and data provided on PS-3
---        to populate the tables
--- ******************************************************
 
-/* inventory tbComponent */
-
-
-/* inventory tbPart */
-
-
-/* inventory tbProduct */
-
-
-/* inventory tbQuote */
-
-
-/* inventory tbShipment */
-
-
-/* inventory tbVendor */
-
-
--- ******************************************************
---    VIEW TABLES
---
--- Note:  Issue the appropiate commands to show your data
--- ******************************************************
-
-SELECT * FROM tbComponent;
-SELECT * FROM tbPart;
-SELECT * FROM tbProduct;
-SELECT * FROM tbQuote;
-SELECT * FROM tbShipment;
-SELECT * FROM tbVendor;
-
-
--- ******************************************************
---    QUALITY CONTROLS
---
--- Note:  Test only 2 constraints of each of
---        the following types:
---        *) Entity integrity
---        *) Referential integrity
---        *) Column constraints
--- ******************************************************
 
 
 -- ******************************************************
