@@ -27,24 +27,30 @@ spool smell_map_triggers.lst
 -- ******************************************************
 
 /* user_account Auto-number PK */
-CREATE OR RELACE TRIGGER tr_new_user_in
-    BEFORE INSERT ON user_account
+CREATE OR REPLACE trigger tr_new_user_in
+
+    BEFORE INSERT ON  user_account
+
     FOR EACH ROW
 
     BEGIN
+
         SELECT sequence_user.nextval
-        INTO :new.user_id
-        FROM dual;
+            INTO :new.user_id
+            FROM dual;
 
     END tr_new_user_in;
 /
 
 /* comment_log Auto-number PK and current date */
-CREATE OR RELACE TRIGGER tr_new_comment_in
+CREATE OR REPLACE TRIGGER tr_new_comment_in
+
     BEFORE INSERT ON comment_log
+
     FOR EACH ROW
 
     BEGIN
+
         SELECT sequence_comment_log.nextval, SYSDATE
         INTO :new.comment_id, :new.comment_date
         FROM dual;
@@ -53,11 +59,14 @@ CREATE OR RELACE TRIGGER tr_new_comment_in
 /
 
 /* subscription_log Auto-number PK and current date */
-CREATE OR RELACE TRIGGER tr_new_subscription_in
+CREATE OR REPLACE TRIGGER tr_new_subscription_in
+
     BEFORE INSERT ON subscription_log
+    
     FOR EACH ROW
 
     BEGIN
+
         SELECT sequence_subscription_log.nextval, SYSDATE
         INTO :new.subscription_id, :new.subscription_date
         FROM dual;

@@ -1,0 +1,75 @@
+60-SQL> 
+60-SQL> -- Smellscape metadata
+60-SQL> INSERT INTO user_sdo_geom_metadata
+  2  	 VALUES (
+  3  	     'smellscape',
+  4  	     'feature_geometry',
+  5  	     SDO_DIM_ARRAY    -- DIMINFO attribute, stores dimension bounds and tolerance
+  6  	     (
+  7  		 SDO_DIM_ELEMENT
+  8  		 (
+  9  		 'LONGITUDE', -- dimension name for first dimension
+ 10  		 -180,	      -- SDO_LB - lower bound of the dimension values
+ 11  		 180,	      -- upper bound for the dimension values
+ 12  		 0.5	      -- tolerance for values - 0.5 meters
+ 13  		 ),
+ 14  		 SDO_DIM_ELEMENT
+ 15  		 (
+ 16  		 'LATITUDE', -- dimension name for second dimension
+ 17  		 -90,	     -- SDO_LB - lower bound of the dimension values
+ 18  		 90,	     -- upper bound for the dimension values
+ 19  		 0.5	      -- tolerance for values - 0.5 meters
+ 20  		 )
+ 21  	     ),
+ 22  	     8307	     -- SRID for WGS 84 Datum
+ 23  	 );
+
+1 row created.
+
+60-SQL> 
+60-SQL> 
+60-SQL> -- smell_profile metadata
+60-SQL> INSERT INTO user_sdo_geom_metadata
+  2  	 VALUES (
+  3  	     'smell_profile',
+  4  	     'feature_geometry',
+  5  	     SDO_DIM_ARRAY    -- DIMINFO attribute, stores dimension bounds and tolerance
+  6  	     (
+  7  		 SDO_DIM_ELEMENT
+  8  		 (
+  9  		 'LONGITUDE', -- dimension name for first dimension
+ 10  		 -180,	      -- SDO_LB - lower bound of the dimension values
+ 11  		 180,	      -- upper bound for the dimension values
+ 12  		 0.5	      -- tolerance for values - 0.5 meters
+ 13  		 ),
+ 14  		 SDO_DIM_ELEMENT
+ 15  		 (
+ 16  		 'LATITUDE', -- dimension name for second dimension
+ 17  		 -90,	     -- SDO_LB - lower bound of the dimension values
+ 18  		 90,	     -- upper bound for the dimension values
+ 19  		 0.5	      -- tolerance for values - 0.5 meters
+ 20  		 )
+ 21  	     ),
+ 22  	     8307	     -- SRID for WGS 84 Datum
+ 23  	 );
+
+1 row created.
+
+60-SQL> 
+60-SQL> 
+60-SQL> 
+60-SQL> 
+60-SQL> 
+60-SQL> 
+60-SQL> 
+60-SQL> 
+60-SQL> 
+60-SQL> 
+60-SQL> 
+60-SQL> 
+60-SQL> 
+60-SQL> -- ******************************************************
+60-SQL> --    END SESSION
+60-SQL> -- ******************************************************
+60-SQL> 
+60-SQL> spool off
