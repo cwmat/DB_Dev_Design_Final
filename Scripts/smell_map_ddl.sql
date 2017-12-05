@@ -126,7 +126,7 @@ CREATE TABLE comment_log (
         CONSTRAINT pk_comment_log PRIMARY KEY,
     user_id                 number(11, 0)       NOT NULL
         CONSTRAINT fk_user_id_comment_log REFERENCES user_account (user_id) ON DELETE CASCADE,
-    fips_code               char(8)             NOT NULL
+    fips_code               char(15)             NOT NULL
         CONSTRAINT fk_fips_code_comment_log REFERENCES smellscape (fips_code) ON DELETE CASCADE,
     comment_date            date                default CURRENT_DATE    NULL,
     comment_desc                 varchar2(1000)      NOT NULL
@@ -139,7 +139,7 @@ CREATE TABLE subscription_log (
         CONSTRAINT pk_subscription_log PRIMARY KEY,
     user_id                 number(11, 0)       NOT NULL
         CONSTRAINT fk_user_id_subscription_log REFERENCES user_account (user_id) ON DELETE CASCADE,
-    fips_code               char(8)             NOT NULL
+    fips_code               char(15)             NOT NULL
         CONSTRAINT fk_fips_code_subscription_log REFERENCES smellscape (fips_code) ON DELETE CASCADE,
     subscription_date            date                default CURRENT_DATE    NULL
 );
@@ -323,6 +323,7 @@ IS
     LONG_STRING varchar2(20);
     LAT_STRING varchar2(20);
     NEW_GEOM varchar2(100);
+    CHECK_CONSTRAINT_VIOLATED EXCEPTION;
 
 BEGIN
     SAVEPOINT start_new_smell_profile;
@@ -358,6 +359,9 @@ BEGIN
     COMMIT;
 
     EXCEPTION
+        WHEN CHECK_CONSTRAINT_VIOLATED THEN
+            dbms_output.put_line('This smell-profile failed to load, there may have been a constraint error.');
+            ROLLBACK TO start_new_smell_profile;
         WHEN OTHERS THEN
             dbms_output.put_line('This smell-profile failed to load, the geometry was possibly out of bounds - see documentation for explaination.');
             ROLLBACK TO start_new_smell_profile;
