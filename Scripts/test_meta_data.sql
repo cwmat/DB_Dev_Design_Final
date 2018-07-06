@@ -1,4 +1,4 @@
-INSERT INTO user_sdo_geom_metadata
+INSERT INTO user_sdo_geom_metadata 
         -- (TABLE_NAME,
         -- COLUMN_NAME,
         -- DIMINFO,

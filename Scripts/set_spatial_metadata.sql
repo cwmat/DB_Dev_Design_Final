@@ -1,5 +1,5 @@
 -- ******************************************************
--- set_spatial_metadata.sql
+-- set_spatial_metadata.sql 
 --
 -- Loader for the Smell Map Database
 --

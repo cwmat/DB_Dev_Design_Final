@@ -1,5 +1,5 @@
 -- ******************************************************
--- smell_map_triggers.sql
+-- smell_map_triggers.sql 
 --
 -- Loader for the Smell Map Database
 --

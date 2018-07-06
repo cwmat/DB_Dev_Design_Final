@@ -1,5 +1,5 @@
 -- ******************************************************
--- create_spatial_index.sql
+-- create_spatial_index.sql 
 --
 -- Loader for the Smell Map Database
 --

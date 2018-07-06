@@ -1,5 +1,5 @@
 -- ******************************************************
--- smell_map_ddl.sql
+-- smell_map_ddl.sql 
 --
 -- Loader for the Smell Map Database
 --

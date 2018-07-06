@@ -1,4 +1,4 @@
-spool test_spatial.lst
+spool test_spatial.lst 
 
 
 DROP TABLE test_spatial purge;

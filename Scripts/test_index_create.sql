@@ -1,4 +1,4 @@
-DROP INDEX test_spatial_index;
+DROP INDEX test_spatial_index; 
 
 CREATE INDEX test_spatial_index ON test_spatial (geo_doc)
     INDEXTYPE IS MDSYS.SPATIAL_INDEX;

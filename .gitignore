@@ -1,2 +1,5 @@
 /GIS/*
 /Proposal/*
+*.docx
+/Scripts/Samples/*
+*.zip

@@ -1,4 +1,4 @@
--- SELECT smellscape.fips_code
+-- SELECT smellscape.fips_code 
 --     FROM smellscape
 --     WHERE SDO_CONTAINS (smellscape.feature_geometry,
 --                         SDO_GEOMETRY('POINT(-77.47552247999993824 37.56914486900006978)', 8307)

@@ -1,4 +1,4 @@
-60-SQL> 
+60-SQL>  
 60-SQL> -- Smellscape metadata
 60-SQL> INSERT INTO user_sdo_geom_metadata
   2  	 VALUES (

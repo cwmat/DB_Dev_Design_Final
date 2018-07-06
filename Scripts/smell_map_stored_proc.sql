@@ -1,5 +1,5 @@
 -- ******************************************************
--- smell_map_stored_proc.sql
+-- smell_map_stored_proc.sql 
 --
 -- Loader for the Smell Map Database
 --
